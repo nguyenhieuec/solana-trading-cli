@@ -10,7 +10,8 @@ import { swap } from "./Pool/swap";
  * @returns {Promise<void>} - A promise that resolves when the sell operation is complete.
  */
 export async function sell(side:string, address:string, sell_percentage:number, payer:Keypair) {
-  await swap(side, address, -1, sell_percentage, payer, "trade");
+  const res = await swap(side, address, -1, sell_percentage, payer, "trade");
+  return res
 }
 export async function get_sell_transaction(side:string, tokenAddr:string, payer_wallet:Keypair) {
   const innerTransaction = await swap(

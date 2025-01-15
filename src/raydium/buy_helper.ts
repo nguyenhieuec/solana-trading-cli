@@ -10,7 +10,8 @@ import { swap } from "./Pool/swap";
  * @returns {Promise<void>} - A promise that resolves when the trade is completed.
  */
 export async function buy(side:string, address:string, no_of_sol:number, payer:Keypair) {
-  await swap(side, address, no_of_sol, -1, payer, "trade");
+  const res = await swap(side, address, no_of_sol, -1, payer, "trade");
+  return res
 }
 
 export async function get_buy_transaction(

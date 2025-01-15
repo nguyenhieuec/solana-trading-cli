@@ -293,6 +293,7 @@ async function swapOnlyAmmHelper(input: any) {
   } else {
     console.log("Transaction failed");
   }
+  return res.txid
 }
 /**
  * Performs a swap operation.
@@ -343,7 +344,7 @@ export async function swap(
       console.log(
         "Pool not found or raydium is not supported for this token. Exiting..."
       );
-      return;
+      return null;
     }
     const amountOfSol = new Decimal(buy_AmountOfSol);
     const inputTokenAmount = new TokenAmount(
@@ -388,7 +389,7 @@ export async function swap(
       console.log(
         "Pool not found or raydium is not supported for this token. Exiting..."
       );
-      return;
+      return null;
     }
 
     const balnaceOfToken = await getSPLTokenBalance(
