@@ -125,7 +125,7 @@ async function swapOnlyAmm(input: any) {
   const transaction = new VersionedTransaction(messageV0);
   transaction.sign([wallet, ...innerTransaction.signers]);
   let attempts = 0;
-  const maxAttempts = 3;
+  const maxAttempts = 10;
 
   while (attempts < maxAttempts) {
     attempts++;
@@ -293,7 +293,7 @@ async function swapOnlyAmmHelper(input: any) {
   } else {
     console.log("Transaction failed");
   }
-  return res.txid
+  return res.txid;
 }
 /**
  * Performs a swap operation.
@@ -365,8 +365,7 @@ export async function swap(
     if (usage == "volume") {
       return await swapOnlyAmm(input);
     }
-    swapOnlyAmmHelper(input); // using jito
-    //swapOnlyAmmUsingBloXRoute(input); // using bloXroute
+    return await swapOnlyAmmHelper(input);
   } else {
     // sell
     const { tokenName, tokenSymbol } = await getTokenMetadata(tokenAddress);
@@ -420,7 +419,6 @@ export async function swap(
     if (usage == "volume") {
       return await swapOnlyAmm(input);
     }
-    swapOnlyAmmHelper(input); // using Jito
-    //swapOnlyAmmUsingBloXRoute(input); // using bloXroute
+    return await swapOnlyAmmHelper(input);
   }
 }
